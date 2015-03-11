@@ -17,12 +17,13 @@ using namespace std;
 class Prompt
 {
 public:
-    void promptForInput(ifstream& inputStream);
-    void promptForOutput(ofstream& outputStream);
+    void promptForInputFile(ifstream& inputStream);
+    void promptForOutputFile(ofstream& outputStream);
+    string promptForCommand();
     
 };
 
-void Prompt::promptForInput(ifstream & inputStream) //function that takes in the reference of an ifstream and will prompt the user for a file name and then will try to open the file.
+void Prompt::promptForInputFile(ifstream & inputStream) //function that takes in the reference of an ifstream and will prompt the user for a file name and then will try to open the file.
 {
     string file;
     cout<<endl<<"Enter the input file name: ";
@@ -32,7 +33,7 @@ void Prompt::promptForInput(ifstream & inputStream) //function that takes in the
     inputStream.open(directory.c_str());
 }
 
-void Prompt::promptForOutput(ofstream& outputStream) //function that takes in the reference of an ofstream and will prompt the user for a file name and then create/open the file.
+void Prompt::promptForOutputFile(ofstream& outputStream) //function that takes in the reference of an ofstream and will prompt the user for a file name and then create/open the file.
 {
     string file;
     cout<<endl<<"Enter the output file name: ";
@@ -40,6 +41,14 @@ void Prompt::promptForOutput(ofstream& outputStream) //function that takes in th
     string directory = "/Users/Kartik/Desktop/Kartik/School/De Anza/Winter Quarter/CIS 22C/Assignment 1/Assignment 1/";
     directory += file;
     outputStream.open(directory.c_str());
+}
+
+string Prompt::promptForCommand()
+{
+    string file;
+    cout<<endl<<"Enter a command: ";
+    getline(cin,file);
+    return file;
 }
 
 
