@@ -1,5 +1,5 @@
-#ifndef Assignment_4_BinarySearchTree_h
-#define Assignment_4_BinarySearchTree_h
+#ifndef BINARYSEARCHTREE_H
+#define BINARYSEARCHTREE_H
 
 #include "BinaryTree.h"
 #include "BinaryNode.h"
@@ -29,17 +29,14 @@ private:
     // search for target node
     BinaryNode<ItemType>* findNode(BinaryNode<ItemType>* treePtr, const ItemType & target) const;
     
-    void print(BinaryNode<ItemType>* p, int indent, int level);
-    
 public:
-    //*********** ADD A CONSTRUCTOR AS DESCRIBED ON THE ASSIGNMENT********
-    
+
+    //constructor
     BinarySearchTree(int p(const ItemType&, const ItemType &))
     {compare = p;}
     
     
-    //*********** ADD A COPY CONSTRUCTOR AS DESCRIBED ON THE ASSIGNMENT********
-    
+    //copy constructor
     BinarySearchTree(const BinaryTree<ItemType> & tree)
     {
         compare = tree.compare;
@@ -54,6 +51,9 @@ public:
     bool getEntry(const ItemType & target, ItemType & returnedItem) const;
     // NOT IN THE Tree Code Files on Catalyst, use for HW#4:
     BinarySearchTree & operator=(const BinarySearchTree & sourceTree);
+    
+    void print(BinaryNode<ItemType>* p, int indent, int level);
+    
 };
 
 
