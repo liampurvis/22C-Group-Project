@@ -219,23 +219,24 @@ BinaryNode<ItemType>* BinarySearchTree<ItemType>::findNode(BinaryNode<ItemType>*
 }
 
 template<class ItemType>
-void BinarySearchTree<ItemType>::print(BinaryNode<ItemType>* p, int indent = 0)
+void BinarySearchTree<ItemType>::print(BinaryNode<ItemType>* p, int indent = 0, int level = 1)
 {
     if(p != NULL)
     {
         if(p->getLeftPtr())
         {
-            print(p->getLeftPtr(), indent + 4);
+            print(p->getLeftPtr(), indent + 4, level + 1);
         }
         if(p->getRightPtr())
         {
-            print(p->getRightPtr(), indent + 4);
+            print(p->getRightPtr(), indent + 4, level + 1);
         }
         if(indent) //indent != 0
         {
             cout << setw(indent) << " ";
+            level++;
         }
-        cout << p->getItem() << endl;
+        cout << level << ". " << p->getItem() << endl;
     }
 }
 
