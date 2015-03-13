@@ -1,6 +1,5 @@
-#ifndef Assignment_4_BinaryNode_h
-#define Assignment_4_BinaryNode_h
-
+#ifndef BINARYNODE_H
+#define BINARYNODE_H
 
 template<class ItemType>
 class BinaryNode
@@ -29,5 +28,4 @@ public:
 }; 
 
 
-
-#endif
+#endif // BINARYNODE_H_INCLUDED
