@@ -1,8 +1,12 @@
-#ifndef BINARYSEARCHTREE_H
-#define BINARYSEARCHTREE_H
+#ifndef BINARYSEARCHTREE_H_INCLUDED
+#define BINARYSEARCHTREE_H_INCLUDED
 
 #include "BinaryTree.h"
 #include "BinaryNode.h"
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
 
 template<class ItemType>
 class BinarySearchTree : public BinaryTree<ItemType>
@@ -10,39 +14,42 @@ class BinarySearchTree : public BinaryTree<ItemType>
 private:
     //*********** ADD A POINTER TO FUNCTION AS DESCRIBED ON THE ASSIGNMENT********
     //   I called it compare
-    
+
     int (*compare)(const ItemType&, const ItemType&);
-    
-    
+
+
     // internal insert node: insert newNode in nodePtr subtree
     BinaryNode<ItemType>* _insert(BinaryNode<ItemType>* nodePtr, BinaryNode<ItemType>* newNode);
-    
+
     // internal remove node: locate and delete target node under nodePtr subtree
     BinaryNode<ItemType>* _remove(BinaryNode<ItemType>* nodePtr, const ItemType target, bool & success);
-    
+
     // delete target node from tree, called by internal remove node
     BinaryNode<ItemType>* deleteNode(BinaryNode<ItemType>* targetNodePtr);
-    
+
     // remove the leftmost node in the left subtree of nodePtr
     BinaryNode<ItemType>* removeLeftmostNode(BinaryNode<ItemType>* nodePtr, ItemType & successor);
-    
+
     // search for target node
     BinaryNode<ItemType>* findNode(BinaryNode<ItemType>* treePtr, const ItemType & target) const;
-    
+
+    void _print(BinaryNode<ItemType>* p, int indent = 0, int level = 1);
+
+
 public:
 
     //constructor
     BinarySearchTree(int p(const ItemType&, const ItemType &))
     {compare = p;}
-    
-    
+
+
     //copy constructor
     BinarySearchTree(const BinaryTree<ItemType> & tree)
     {
         compare = tree.compare;
         CopyTree(tree);
     }
-    
+
     // insert a node at the correct location
     bool insert(const ItemType & newEntry);
     // remove a node if found
@@ -51,9 +58,9 @@ public:
     bool getEntry(const ItemType & target, ItemType & returnedItem) const;
     // NOT IN THE Tree Code Files on Catalyst, use for HW#4:
     BinarySearchTree & operator=(const BinarySearchTree & sourceTree);
-    
-    void print(BinaryNode<ItemType>* p, int indent, int level);
-    
+
+    void print();
+
 };
 
 
@@ -89,15 +96,15 @@ bool BinarySearchTree<ItemType>::getEntry(const ItemType& anEntry, ItemType & re
     // If it does, assign to the returnedItem parameter the item of the
     //     found node and return true
     // If it doesn't, return false
-    
+
     if(findNode(BinaryTree<ItemType>::rootPtr, anEntry)==0)
         return false;
     else
         returnedItem = findNode(BinaryTree<ItemType>::rootPtr, anEntry)->getItem();
     return true;
-        
-    
-    
+
+
+
 }
 
 
@@ -208,7 +215,7 @@ BinaryNode<ItemType>* BinarySearchTree<ItemType>::findNode(BinaryNode<ItemType>*
     //       ELSE IF nodePtr's item > target THEN (make sure you use the compare function)
     //            return what the recursive call to findNode, for the rightPtr, returns
     //	ELSE
-    
+
     if(nodePtr == 0)
         return 0;
     else if (compare(nodePtr->getItem(), target) < 0)
@@ -217,21 +224,21 @@ BinaryNode<ItemType>* BinarySearchTree<ItemType>::findNode(BinaryNode<ItemType>*
         return findNode(nodePtr->getRightPtr(), target);
     else
         return nodePtr;
-    
+
 }
 
 template<class ItemType>
-void BinarySearchTree<ItemType>::print(BinaryNode<ItemType>* p, int indent = 0, int level = 1)
+void BinarySearchTree<ItemType>::_print(BinaryNode<ItemType>* p, int indent, int level)
 {
     if(p != NULL)
     {
         if(p->getLeftPtr())
         {
-            print(p->getLeftPtr(), indent + 4, level + 1);
+            _print(p->getLeftPtr(), indent + 4, level + 1);
         }
         if(p->getRightPtr())
         {
-            print(p->getRightPtr(), indent + 4, level + 1);
+            _print(p->getRightPtr(), indent + 4, level + 1);
         }
         if(indent) //indent != 0
         {
@@ -242,4 +249,12 @@ void BinarySearchTree<ItemType>::print(BinaryNode<ItemType>* p, int indent = 0, 
     }
 }
 
-#endif
+template<class ItemType>
+void BinarySearchTree<ItemType>::print()
+{
+    int indent = 0;
+    int level = 1;
+    _print(this->rootPtr, indent, level);
+}
+
+#endif // BINARYSEARCHTREE_H_INCLUDED
