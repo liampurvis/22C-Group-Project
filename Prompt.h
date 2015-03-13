@@ -51,5 +51,31 @@ string Prompt::promptForCommand()
     return file;
 }
 
+//Vinitra's getFile function
+//**************************************************************
+// Definition of function getFile:
+// This function inputs the user's desired data file name or
+// accepts the default file of "HW3 input.txt".
+//**************************************************************
+//string getFile()
+//{
+//
+//	string fileName;
+//	std::string exten = ".txt";
+//
+//	cout << "Welcome! What is the name of the input file you want to use?" << endl;
+//	cout << "If the file name is 'HW3 Input' then press enter." << endl;
+//	getline(cin, fileName);
+//
+//	if (fileName.empty())  //set default file to HW1 input.txt
+//		fileName = "HW3 Input";
+//	else
+//		cout << endl;
+//
+//	fileName += exten;  //concatenate file name with extension
+//
+//	return fileName;
+//}
+
 
 #endif
