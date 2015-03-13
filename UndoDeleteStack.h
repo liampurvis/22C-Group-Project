@@ -1,3 +1,4 @@
+// Undo Delete Stack
 // Linked list implementation of stack ADT
 // Created by Frank M. Carrano and Tim Henry.
 // Modified by C. Lee-Klawender
@@ -29,7 +30,7 @@ public:
 /////////////// add to this class so it's not an abstract class
 
 template<class ItemType>
-UndoDeleteStack<ItemType>::UndoDeleteStack(const LinkedStack<ItemType>& aStack)
+UndoDeleteStack<ItemType>::UndoDeleteStack(const UndoDeleteStack<ItemType>& aStack)
 {
    Node<ItemType>* origChainPtr = aStack.topPtr;  // original chain is linked list to be copied
 
@@ -75,6 +76,22 @@ bool UndoDeleteStack<ItemType>::pop()
 	Node<ItemType>* nodeToDeletePtr = topPtr;
 	topPtr = topPtr->getNext();
 	delete nodeToDeletePtr;
+	return true;
+}
+
+template<class ItemType>
+bool UndoDeleteStack<ItemType>::clear()
+{
+	if (isEmpty())
+		return true;
+
+	while(topPtr->getNext())
+	{
+		Node<ItemType>* nodeToDeletePtr = topPtr;
+		topPtr = topPtr->getNext();
+		delete nodeToDeletePtr;
+	}
+	
 	return true;
 }
 
