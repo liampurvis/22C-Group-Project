@@ -82,7 +82,7 @@ bool UndoDeleteStack<ItemType>::pop()
 template<class ItemType>
 bool UndoDeleteStack<ItemType>::clear()
 {
-	if (isEmpty())
+	if(isEmpty())
 		return true;
 
 	while(topPtr->getNext())
@@ -91,7 +91,10 @@ bool UndoDeleteStack<ItemType>::clear()
 		topPtr = topPtr->getNext();
 		delete nodeToDeletePtr;
 	}
-	
+
+	if(!isEmpty())	
+		return false;
+		
 	return true;
 }
 
