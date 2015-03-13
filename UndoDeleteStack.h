@@ -3,8 +3,8 @@
 // Vinitra Swamy
 
 
-#ifndef _UNDO_DELETE_STACK
-#define _UNDO_DELETE_STACK
+#ifndef _UNDODELETE_STACK
+#define _UNDODELETE_STACK
 
 #include "StackInterface.h"
 #include "Node.h"
@@ -16,14 +16,15 @@ private:
 	Node<ItemType>* topPtr;
 
 public:
-	UndoDeleteStack() {topPtr = 0; }
+	UndoDeleteStack() { topPtr = 0; }
 	UndoDeleteStack(const UndoDeleteStack<ItemType>& aStack);
-	virtual ~UndoDeleteStack() {while (topPtr!=0) {pop();} }
+	virtual ~UndoDeleteStack() { while (topPtr != 0) { pop(); } }
 
-	bool isEmpty() const {return (topPtr == 0);}
+	bool isEmpty() const { return (topPtr == 0); }
 	bool push(const ItemType& newItem);
 	bool pop();
-	ItemType peek() const {return topPtr->getItem();}
+	ItemType peek() const { return topPtr->getItem(); }
+	bool clear();
 };
 
 /////////////// add to this class so it's not an abstract class
@@ -31,28 +32,28 @@ public:
 template<class ItemType>
 UndoDeleteStack<ItemType>::UndoDeleteStack(const UndoDeleteStack<ItemType>& aStack)
 {
-   Node<ItemType>* origChainPtr = aStack.topPtr;  // original chain is linked list to be copied
+	Node<ItemType>* origChainPtr = aStack.topPtr;  // original chain is linked list to be copied
 
-   if (origChainPtr == 0)
-      topPtr = 0;
-   else
-   {
-      topPtr = new Node<ItemType>();				// copy top item
-      topPtr->setItem(origChainPtr->getItem());
+	if (origChainPtr == 0)
+		topPtr = 0;
+	else
+	{
+		topPtr = new Node<ItemType>();				// copy top item
+		topPtr->setItem(origChainPtr->getItem());
 
-      Node<ItemType>* newChainPtr = topPtr;			// new chain starts at top
-      origChainPtr = origChainPtr->getNext();		// start with next item in original chain
+		Node<ItemType>* newChainPtr = topPtr;			// new chain starts at top
+		origChainPtr = origChainPtr->getNext();		// start with next item in original chain
 
-      while (origChainPtr != 0)						// copy rest of list
-      {
-         ItemType nextItem = origChainPtr->getItem();
-         Node<ItemType>* newNodePtr = new Node<ItemType>(nextItem);	// create new node
-         newChainPtr->setNext(newNodePtr);							// add new node to list
-         newChainPtr = newChainPtr->getNext();						// walk to next item
-         origChainPtr = origChainPtr->getNext();
-      }
-      newChainPtr->setNext(0);						// set end of list
-   }
+		while (origChainPtr != 0)						// copy rest of list
+		{
+			ItemType nextItem = origChainPtr->getItem();
+			Node<ItemType>* newNodePtr = new Node<ItemType>(nextItem);	// create new node
+			newChainPtr->setNext(newNodePtr);							// add new node to list
+			newChainPtr = newChainPtr->getNext();						// walk to next item
+			origChainPtr = origChainPtr->getNext();
+		}
+		newChainPtr->setNext(0);						// set end of list
+	}
 }
 
 
@@ -81,17 +82,18 @@ bool UndoDeleteStack<ItemType>::pop()
 template<class ItemType>
 bool UndoDeleteStack<ItemType>::clear()
 {
-	
-	while(topPtr != 0) //!isEmpty()
+
+	while (topPtr != 0) //!isEmpty()
 	{
 		pop();
 	}
-	
-	if(isEmpty())
+
+	if (isEmpty())
 		return true;
-	
+
 	return false;
 
 }
 
 #endif
+
