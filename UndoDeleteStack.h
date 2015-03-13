@@ -3,22 +3,22 @@
 // Modified by C. Lee-Klawender
 
 
-#ifndef _LINKED_STACK
-#define _LINKED_STACK
+#ifndef _UNDO_DELETE_STACK
+#define _UNDO_DELETE_STACK
 
 #include "StackInterface.h"
 #include "Node.h"
 
 template<class ItemType>
-class LinkedStack : public StackInterface<ItemType>
+class UndoDeleteStack : public StackInterface<ItemType>
 {
 private:
 	Node<ItemType>* topPtr;
 
 public:
-	LinkedStack() {topPtr = 0; }
-	LinkedStack(const LinkedStack<ItemType>& aStack);
-	virtual ~LinkedStack() {while (topPtr!=0) {pop();} }
+	UndoDeleteStack() {topPtr = 0; }
+	UndoDeleteStack(const UndoDeleteStack<ItemType>& aStack);
+	virtual ~UndoDeleteStack() {while (topPtr!=0) {pop();} }
 
 	bool isEmpty() const {return (topPtr == 0);}
 	bool push(const ItemType& newItem);
@@ -29,7 +29,7 @@ public:
 /////////////// add to this class so it's not an abstract class
 
 template<class ItemType>
-LinkedStack<ItemType>::LinkedStack(const LinkedStack<ItemType>& aStack)
+UndoDeleteStack<ItemType>::UndoDeleteStack(const LinkedStack<ItemType>& aStack)
 {
    Node<ItemType>* origChainPtr = aStack.topPtr;  // original chain is linked list to be copied
 
@@ -57,7 +57,7 @@ LinkedStack<ItemType>::LinkedStack(const LinkedStack<ItemType>& aStack)
 
 
 template<class ItemType>
-bool LinkedStack<ItemType>::push(const ItemType& newItem)
+bool UndoDeleteStack<ItemType>::push(const ItemType& newItem)
 {
 	Node<ItemType>* newNodePtr = new Node<ItemType>(newItem);
 	newNodePtr->setNext(topPtr);
@@ -67,7 +67,7 @@ bool LinkedStack<ItemType>::push(const ItemType& newItem)
 
 
 template<class ItemType>
-bool LinkedStack<ItemType>::pop()
+bool UndoDeleteStack<ItemType>::pop()
 {
 	if (isEmpty())
 		return false;
