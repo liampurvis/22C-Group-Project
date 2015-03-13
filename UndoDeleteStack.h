@@ -1,7 +1,6 @@
 // Undo Delete Stack
 // Linked list implementation of stack ADT
-// Created by Frank M. Carrano and Tim Henry.
-// Modified by C. Lee-Klawender
+// Vinitra Swamy
 
 
 #ifndef _UNDO_DELETE_STACK
