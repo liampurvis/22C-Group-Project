@@ -29,6 +29,8 @@ private:
     // search for target node
     BinaryNode<ItemType>* findNode(BinaryNode<ItemType>* treePtr, const ItemType & target) const;
     
+    void print(BinaryNode<ItemType>* p, int indent, int level);
+    
 public:
     //*********** ADD A CONSTRUCTOR AS DESCRIBED ON THE ASSIGNMENT********
     
