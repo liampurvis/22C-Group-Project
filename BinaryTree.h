@@ -1,6 +1,6 @@
+#ifndef BINARYTREE_H
+#define BINARYTREE_H
 
-#ifndef Assignment_4_BinaryTree_h
-#define Assignment_4_BinaryTree_h
 #include <iostream>
 #include "BinaryNode.h"
 
