@@ -227,8 +227,9 @@ void printIndentedKey(BinarySearchTree<PTR_ADS>& adsBST){
     
 }
 
-void printStatistics(HashLP<PTR_ADS& adsHashLP){
-    
+void printStatistics(HashLP<PTR_ADS& adsHashLP)
+{
+    adsHashLP->displayStatistics();
 }
 
 bool writeDataToFile(HashLP<PTR_ADS>& adsHashLP)
