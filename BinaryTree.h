@@ -7,6 +7,7 @@
 template<class ItemType>
 class BinaryTree
 {
+    
 protected:
     BinaryNode<ItemType>* rootPtr;      // ptr to root node
     int count;                          // number of nodes in tree
@@ -81,7 +82,7 @@ template<class ItemType>
 void BinaryTree<ItemType>::destroyTree(BinaryNode<ItemType>* nodePtr)
 {
     
-    if(nodePtr ==0)
+    if(nodePtr == 0)
         return;
     destroyTree(nodePtr->getLeftPtr());
     destroyTree(nodePtr->getRightPtr());
