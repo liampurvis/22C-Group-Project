@@ -1,3 +1,11 @@
+//
+//  HashLP.h
+//  Assignment 5
+//
+//  Created by Kartik Vats on 3/13/15.
+//  Copyright (c) 2015 Kartik Vats. All rights reserved.
+//
+
 #ifndef Assignment_5_HashLP_h
 #define Assignment_5_HashLP_h
 
@@ -39,6 +47,7 @@ public:
     bool setMaxLambda( float lm );
     void displayStatistics() const;
     bool getEntry(const Object & target, Object & returnedItem) const;
+    std::ostream& write(std::ostream& os);
     
 protected:
     void rehash();
@@ -251,6 +260,14 @@ long HashLP<Object>::nextPrime(long n)
         if (k > loopLim)
             return candidate;
     }
+}
+template <class Object>
+std::ostream& HashLP<Object>::write(std::ostream &os)
+{
+    for (int i = 0; i < INIT_TABLE_SIZE; i++)
+        if(mArray[i].state == ACTIVE)
+            os<<mArray[i];
+    return os;
 }
 
 
