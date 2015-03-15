@@ -33,6 +33,7 @@ public:
     string getSlogan() const {return slogan;}
     string getMisledingStat() const {return misleadingStat;}
     double getStatistic() const {return statistic;}
+    friend ostream& operator<<(ostream& os, const AdsMocking2016Race& compAd);
     
     bool operator != (const AdsMocking2016Race &compAd) const{                  //operator overloaders of <,>, !=, <=, & >=:
         if (name != compAd.getName())
@@ -80,6 +81,13 @@ public:
         string output = name + "\n" + slogan + "\n" + misleadingStat + " " + statistic;
         return output;
     }
+    
+    ostream& operator<<(ostream& os, const AdsMocking2016Race& compAd)
+    {
+         os << compAd.name << "\n" << compAd.slogan << "\n" << compAd.misleadingStat << "\n" << compAd.statistic << "\n";
+         return os;
+    }
+
 
 };
 
