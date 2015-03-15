@@ -1,3 +1,6 @@
+//Binary Search Tree, derived from Binary Tree
+//Vinitra Swamy
+
 #ifndef BINARYSEARCHTREE_H_INCLUDED
 #define BINARYSEARCHTREE_H_INCLUDED
 
@@ -12,11 +15,9 @@ template<class ItemType>
 class BinarySearchTree : public BinaryTree<ItemType>
 {
 private:
-    //*********** ADD A POINTER TO FUNCTION AS DESCRIBED ON THE ASSIGNMENT********
-    //   I called it compare
 
-    int (*compare)(const ItemType&, const ItemType&);
-
+    // A pointer to function variable for compare function
+     int (*compare)(const ItemType&, const ItemType&);
 
     // internal insert node: insert newNode in nodePtr subtree
     BinaryNode<ItemType>* _insert(BinaryNode<ItemType>* nodePtr, BinaryNode<ItemType>* newNode);
@@ -33,8 +34,8 @@ private:
     // search for target node
     BinaryNode<ItemType>* findNode(BinaryNode<ItemType>* treePtr, const ItemType & target) const;
 
+    // internal print node: recursively prints entire tree with level numbers
     void _print(BinaryNode<ItemType>* p, int indent = 0, int level = 1);
-
 
 public:
 
@@ -52,19 +53,26 @@ public:
 
     // insert a node at the correct location
     bool insert(const ItemType & newEntry);
+    
     // remove a node if found
     bool remove(const ItemType & anEntry);
+    
     // find a target node
     bool getEntry(const ItemType & target, ItemType & returnedItem) const;
-    // NOT IN THE Tree Code Files on Catalyst, use for HW#4:
+    
+    // overloading the "=" operator to copy sourceTree
     BinarySearchTree & operator=(const BinarySearchTree & sourceTree);
 
+    //calls internal print function
     void print();
 
 };
 
-
-
+//**************************************************************
+// Definition of function insert:
+// This function is a public member insertion function that calls 
+// the recursive internal _insert function
+//**************************************************************
 
 template<class ItemType>
 bool BinarySearchTree<ItemType>::insert(const ItemType & newEntry)
@@ -74,8 +82,11 @@ bool BinarySearchTree<ItemType>::insert(const ItemType & newEntry)
     return true;
 }
 
-
-
+//**************************************************************
+// Definition of function remove:
+// This function is a public member removal function that calls 
+// the recursive internal  _remove function
+//**************************************************************
 
 template<class ItemType>
 bool BinarySearchTree<ItemType>::remove(const ItemType & target)
@@ -86,31 +97,31 @@ bool BinarySearchTree<ItemType>::remove(const ItemType & target)
 }
 
 
-
+//**************************************************************
+// Definition of function getEntry:
+// This function calls the findNode function to see whether node 
+// exists, passes back foundNode's value in returnedItem, and
+// returns a bool testing for the findNode's success
+//**************************************************************
 
 template<class ItemType>
 bool BinarySearchTree<ItemType>::getEntry(const ItemType& anEntry, ItemType & returnedItem) const
 {
-    // MUST INCLUDE CALLING THE PRIVATE findNode FUNCTION
-    // Be sure to check if the findNode function actually finds anEntry
-    // If it does, assign to the returnedItem parameter the item of the
-    //     found node and return true
-    // If it doesn't, return false
 
-    if(findNode(BinaryTree<ItemType>::rootPtr, anEntry)==0)
+    if(findNode(BinaryTree<ItemType>::rootPtr, anEntry) == 0)
         return false;
     else
         returnedItem = findNode(BinaryTree<ItemType>::rootPtr, anEntry)->getItem();
     return true;
 
-
-
 }
 
+//**************************************************************
+// Definition of function operator=:
+// This function overloads the "=" operator by assigning 
+// sourceTree's contents to the BST
+//**************************************************************
 
-
-
-//NOT IN THE Tree Code Files on Catalyst, use for HW#4:
 template<class ItemType>
 BinarySearchTree<ItemType> & BinarySearchTree<ItemType>::operator=(const BinarySearchTree<ItemType> & sourceTree)
 {
@@ -119,14 +130,19 @@ BinarySearchTree<ItemType> & BinarySearchTree<ItemType>::operator=(const BinaryS
     return *this;
 }
 
-
+//**************************************************************
+// Definition of function _insert:
+// This function is a private insert function called by the 
+// public member insert function to insert new data into the BST
+//**************************************************************
 
 template<class ItemType>
 BinaryNode<ItemType>* BinarySearchTree<ItemType>::_insert(BinaryNode<ItemType>* nodePtr,BinaryNode<ItemType>* newNodePtr)
 {
-    if( nodePtr==0 )
+    if( nodePtr == 0 )
         return newNodePtr;
-    if( compare(newNodePtr->getItem(),  nodePtr->getItem()) < 0 ) //*****CHANGE THIS*****
+        
+    if( compare(newNodePtr->getItem(),  nodePtr->getItem()) < 0 )
         nodePtr->setLeftPtr(_insert( nodePtr->getLeftPtr(), newNodePtr ));
         else
             nodePtr->setRightPtr(_insert( nodePtr->getRightPtr(), newNodePtr ));
@@ -207,14 +223,6 @@ template<class ItemType>
 BinaryNode<ItemType>* BinarySearchTree<ItemType>::findNode(BinaryNode<ItemType>* nodePtr,
                                                            const ItemType & target) const
 {
-    // ALGORITHM:
-    //       IF nodePtr doesn't exist (is 0) THEN
-    //            return 0
-    //       ELSE IF nodePtr's item < target THEN (make sure you use the compare function)
-    //                return what the recursive call to findNode, for the leftPtr, returns
-    //       ELSE IF nodePtr's item > target THEN (make sure you use the compare function)
-    //            return what the recursive call to findNode, for the rightPtr, returns
-    //	ELSE
 
     if(nodePtr == 0)
         return 0;
