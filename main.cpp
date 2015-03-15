@@ -214,8 +214,9 @@ void findAndDisplayData (HashLP<PTR_ADS &adsHashLP){
     
 }
 
-void listDataInHash (HashLP<PTR_ADS &adsHashLP){
-    
+void listDataInHash (HashLP<PTR_ADS &adsHashLP)
+{
+    adsHashLP->write(cout);
 }
 
 void listDataInKey(BinarySearchTree<PTR_ADS> &adsBST) {
