@@ -243,7 +243,6 @@ void BinarySearchTree<ItemType>::_print(BinaryNode<ItemType>* p, int indent, int
         if(indent) //indent != 0
         {
             cout << setw(indent) << " ";
-            level++;
         }
         cout << level << ". " << p->getItem() << endl;
     }
