@@ -231,8 +231,10 @@ void printStatistics(HashLP<PTR_ADS& adsHashLP){
     
 }
 
-bool writeDataToFile(BinarySearchTree<PTR_ADS>& adsBST){
-    
+bool writeDataToFile(HashLP<PTR_ADS>& adsHashLP)
+{
+       
+        adsHashLP->write(file); //file is ostream of the text file we want to write to
 }
 
 void undoDelete(HashLP<PTR_ADS &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, UndoDeleteStack<PTR_ADS> &trash){
