@@ -32,10 +32,9 @@ void listDataInHash (HashLP<PTR_ADS>&);
 void listDataInKey(BinarySearchTree<PTR_ADS>&);
 void printIndentedKey(BinarySearchTree<PTR_ADS>&);
 void printStatistics(HashLP<PTR_ADS>&);
-bool writeDataToFile(BinarySearchTree<PTR_ADS>&);
+bool writeDataToFile(BinarySearchTree<PTR_ADS>&, UndoDeleteStack<PTR_ADS> trash);
 void undoDelete(HashLP<PTR_ADS>&, BinarySearchTree<PTR_ADS>&, UndoDeleteStack<PTR_ADS>&);
-void emptyTrash(UndoDeleteStack<PTR_ADS>);
-void quit();
+void quit(UndoDeleteStack<PTR_ADS> trash);
 
 int compareNames (const PTR_ADS &left, const PTR_ADS &right);                           //function that compares objects
 void displayPTR_ADS (PTR_ADS &toDisplay);
@@ -243,11 +242,7 @@ void undoDelete(HashLP<PTR_ADS &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, Un
     
 }
 
-void emptyTrash(UndoDeleteStack<PTR_ADS> trash){
-    trash->clear();
-}
-
-void quit(){
+void quit(UndoDeleteStack<PTR_ADS> trash){
     trash->clear();
 }
 
