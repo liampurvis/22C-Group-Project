@@ -266,7 +266,7 @@ std::ostream& HashLP<Object>::write(std::ostream &os)
 {
     for (int i = 0; i < INIT_TABLE_SIZE; i++)
         if(mArray[i].state == ACTIVE)
-            os<<mArray[i];
+            os<<mArray[i].data;
     return os;
 }
 
