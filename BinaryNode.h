@@ -13,7 +13,7 @@ public:
 
     // constructors
     BinaryNode(const ItemType & anItem)             {item = anItem; leftPtr = 0; rightPtr = 0;}
-    BinaryNode(const ItemType & anItem,
+    BinaryNode(const ItemType & anItem, 
                BinaryNode<ItemType>* left,
                BinaryNode<ItemType>* right)         {item = anItem; leftPtr = left; rightPtr = right;}
 
