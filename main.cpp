@@ -235,8 +235,10 @@ void printStatistics(HashLP<PTR_ADS& adsHashLP)
 
 bool writeDataToFile(HashLP<PTR_ADS>& adsHashLP, UndoDeleteStack<PTR_ADS> trash)
 {
-       
+       ofstream file;
+       file.open("output.txt");
         adsHashLP->write(file); //file is ostream of the text file we want to write to
+        file.close();
 }
 
 void emptyTrash(UndoDeleteStack<PTR_ADS> trash){
