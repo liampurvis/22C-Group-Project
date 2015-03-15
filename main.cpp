@@ -225,7 +225,7 @@ void listDataInKey(BinarySearchTree<PTR_ADS> &adsBST) {
 }
 
 void printIndentedKey(BinarySearchTree<PTR_ADS>& adsBST){
-    
+    adBST->print();
 }
 
 void printStatistics(HashLP<PTR_ADS& adsHashLP)
@@ -244,10 +244,12 @@ void undoDelete(HashLP<PTR_ADS &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, Un
 }
 
 void emptyTrash(UndoDeleteStack<PTR_ADS> trash){
-    
+    trash->clear();
 }
 
-void quit();
+void quit(){
+    trash->clear();
+}
 
 
 
