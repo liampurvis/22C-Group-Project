@@ -33,6 +33,7 @@ public:
     string getSlogan() const {return slogan;}
     string getMisledingStat() const {return misleadingStat;}
     double getStatistic() const {return statistic;}
+    ostream& write(ostream& os) const;
     friend ostream& operator<<(ostream& os, const AdsMocking2016Race& compAd);
     
     bool operator != (const AdsMocking2016Race &compAd) const{                  //operator overloaders of <,>, !=, <=, & >=:
@@ -76,20 +77,20 @@ public:
             return false;
     }
     
-    ostream& write(ostream& os) const
-    {
-        os << name << "\n" << slogan << "\n"
-           << misleadingStat << " "  << statistic;
-        return os;
-    }
-    
-    ostream& operator<<(ostream& os, const AdsMocking2016Race& compAd)
-    {
-         os << compAd.name << "\n" << compAd.slogan << "\n" << compAd.misleadingStat << "\n" << compAd.statistic << "\n";
-         return os;
-    }
-
-
 };
+
+ostream& AdsMocking2016Race::write(ostream& os) const
+{
+    os << name << "\n" << slogan << "\n"
+       << misleadingStat << " "  << statistic;
+    return os;
+}
+
+ostream& AdsMocking2016Race::operator<<(ostream& os, const AdsMocking2016Race& compAd)
+{
+     os << compAd.name << "\n" << compAd.slogan << "\n" << compAd.misleadingStat << "\n" << compAd.statistic << "\n";
+     return os;
+}
+
 
 #endif /* defined(__Team_Project_22C__AdsMocking2016Race__) */
