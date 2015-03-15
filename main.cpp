@@ -33,6 +33,7 @@ void listDataInKey(BinarySearchTree<PTR_ADS>&);
 void printIndentedKey(BinarySearchTree<PTR_ADS>&);
 void printStatistics(HashLP<PTR_ADS>&);
 bool writeDataToFile(BinarySearchTree<PTR_ADS>&, UndoDeleteStack<PTR_ADS> trash);
+void emptyTrash(UndoDeleteStack<PTR_ADS> trash);
 void undoDelete(HashLP<PTR_ADS>&, BinarySearchTree<PTR_ADS>&, UndoDeleteStack<PTR_ADS>&);
 void quit(UndoDeleteStack<PTR_ADS> trash);
 
@@ -172,7 +173,7 @@ bool menu(HashLP<PTR_ADS> &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, UndoDel
                 emptyTrash(trash);
                 break;
             case 10:
-                writeDataToFile(adsBST);
+                writeDataToFile(adsBST, trash);
                 break;
             case 11:
                 return true;
@@ -232,10 +233,14 @@ void printStatistics(HashLP<PTR_ADS& adsHashLP)
     adsHashLP->displayStatistics();
 }
 
-bool writeDataToFile(HashLP<PTR_ADS>& adsHashLP)
+bool writeDataToFile(HashLP<PTR_ADS>& adsHashLP, UndoDeleteStack<PTR_ADS> trash)
 {
        
         adsHashLP->write(file); //file is ostream of the text file we want to write to
+}
+
+void emptyTrash(UndoDeleteStack<PTR_ADS> trash){
+    trash->clear();
 }
 
 void undoDelete(HashLP<PTR_ADS &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, UndoDeleteStack<PTR_ADS> &trash){
@@ -243,7 +248,7 @@ void undoDelete(HashLP<PTR_ADS &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, Un
 }
 
 void quit(UndoDeleteStack<PTR_ADS> trash){
-    trash->clear();
+    emptyTrash(trash);
 }
 
 
