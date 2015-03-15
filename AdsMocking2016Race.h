@@ -79,6 +79,8 @@ public:
     {
         string output = name + "\n" + slogan + "\n" + misleadingStat + " " + statistic;
         return output;
-    };
+    }
+
+};
 
 #endif /* defined(__Team_Project_22C__AdsMocking2016Race__) */
