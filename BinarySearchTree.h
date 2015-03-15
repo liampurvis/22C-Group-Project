@@ -149,6 +149,12 @@ BinaryNode<ItemType>* BinarySearchTree<ItemType>::_insert(BinaryNode<ItemType>* 
             return nodePtr; // must return
 }
 
+//**************************************************************
+// Definition of function _remove:
+// This function is a private remove function called recursively 
+// by the public member function remove to find and delete 
+// data from the BST
+//**************************************************************
 template<class ItemType>
 BinaryNode<ItemType>* BinarySearchTree<ItemType>::_remove(BinaryNode<ItemType>* nodePtr,
                                                           const ItemType target, bool & success)
@@ -169,6 +175,13 @@ BinaryNode<ItemType>* BinarySearchTree<ItemType>::_remove(BinaryNode<ItemType>* 
     }
     return nodePtr;
 }
+
+//**************************************************************
+// Definition of function deleteNode:
+// This function is a private delete function called by another 
+// function to delete the given node and returns the value of
+// nodetoConnectPtr if nodePtr isn't a leaf or null
+//**************************************************************
 
 template<class ItemType>
 BinaryNode<ItemType>* BinarySearchTree<ItemType>::deleteNode(BinaryNode<ItemType>* nodePtr)
@@ -202,6 +215,13 @@ BinaryNode<ItemType>* BinarySearchTree<ItemType>::deleteNode(BinaryNode<ItemType
     }
 }
 
+//**************************************************************
+// Definition of function removeLeftMostNode:
+// This function is a private remove function that calls the
+// deleteNode function for the leftmost node on the given node's
+// left subtree.
+//**************************************************************
+
 template<class ItemType>
 BinaryNode<ItemType>* BinarySearchTree<ItemType>::removeLeftmostNode(BinaryNode<ItemType>* nodePtr,
                                                                      ItemType & successor)
@@ -218,6 +238,11 @@ BinaryNode<ItemType>* BinarySearchTree<ItemType>::removeLeftmostNode(BinaryNode<
     }
 }
 
+//**************************************************************
+// Definition of function findNode:
+// This function is a private insert function which searches the 
+// Binary Search Tree for a node given a target parameter value.
+//**************************************************************
 
 template<class ItemType>
 BinaryNode<ItemType>* BinarySearchTree<ItemType>::findNode(BinaryNode<ItemType>* nodePtr,
@@ -234,6 +259,12 @@ BinaryNode<ItemType>* BinarySearchTree<ItemType>::findNode(BinaryNode<ItemType>*
         return nodePtr;
 
 }
+
+//**************************************************************
+// Definition of function _print:
+// This function is a private print function which recursively 
+// prints the Binary Search Tree in an indented format.
+//**************************************************************
 
 template<class ItemType>
 void BinarySearchTree<ItemType>::_print(BinaryNode<ItemType>* p, int indent, int level)
@@ -255,6 +286,12 @@ void BinarySearchTree<ItemType>::_print(BinaryNode<ItemType>* p, int indent, int
         cout << level << ". " << p->getItem() << endl;
     }
 }
+
+//**************************************************************
+// Definition of function print:
+// This public print function calls the private recursive print 
+// function in the BST class.
+//**************************************************************
 
 template<class ItemType>
 void BinarySearchTree<ItemType>::print()
