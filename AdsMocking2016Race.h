@@ -76,10 +76,11 @@ public:
             return false;
     }
     
-    string write() const
+    ostream& write(ostream& os) const
     {
-        string output = name + "\n" + slogan + "\n" + misleadingStat + " " + statistic;
-        return output;
+        os << name << "\n" << slogan << "\n"
+           << misleadingStat << " "  << statistic;
+        return os;
     }
     
     ostream& operator<<(ostream& os, const AdsMocking2016Race& compAd)
