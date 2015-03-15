@@ -6,8 +6,8 @@ class BinaryNode
 {
 private:
     ItemType              item;         // Data portion
-    BinaryNode<ItemType>* leftPtr;		// Pointer to left child
-    BinaryNode<ItemType>* rightPtr;		// Pointer to right child
+    BinaryNode<ItemType>* leftPtr;      // Pointer to left child
+    BinaryNode<ItemType>* rightPtr;     // Pointer to right child
     
 public:
 
