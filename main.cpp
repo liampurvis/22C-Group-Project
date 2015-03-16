@@ -331,6 +331,7 @@ int HashString( const string & key )
 
 
 void displayOptions() {
+    cout << "         MENU           "
     cout << "************************" << endl;
     cout << "* 1) ADD DATA          *" << endl;
     cout << "* 2) MOVE TO TRASH     *" << endl;
