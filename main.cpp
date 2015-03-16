@@ -9,6 +9,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cstring>
+#include <istream>
 #include "UndoDeleteStack.h"
 #include "BinarySearchTree.h"
 #include "HashLP.h"
@@ -21,25 +23,25 @@ typedef AdsMocking2016Race* PTR_ADS;
 
 void welcomeFunction(); // welcomes user to the program
 bool openInputFile(ifstream &ifs);                                                    // Function opens input File
-void readInData(HashLP<PTR_ADS> &, BinarySearchTree<PTR_ADS> &, ifstream &inputFile); // Function reads in data from file,
+void readInData(HashLP<PTR_ADS>*, BinarySearchTree<PTR_ADS>*, ifstream &inputFile); // Function reads in data from file,
                                                                             // and assigns it to both the BST and the HashLP.
-bool menu(HashLP<PTR_ADS>&, BinarySearchTree<PTR_ADS>&, UndoDeleteStack<PTR_ADS>&);      // Function displays menu and allows
+bool menu(HashLP<PTR_ADS>*, BinarySearchTree<PTR_ADS>*, UndoDeleteStack<PTR_ADS>*);      // Function displays menu and allows
                                                                             // user to choose options.
-void addData(HashLP<PTR_ADS>&, BinarySearchTree<PTR_ADS>&);  // these are all options from menu and are pretty self-explanatory
-void deleteData (HashLP<PTR_ADS>&, BinarySearchTree<PTR_ADS>&, UndoDeleteStack<PTR_ADS>&);
-void findAndDisplayData (HashLP<PTR_ADS>& );
-void listDataInHash (HashLP<PTR_ADS>&);
-void listDataInKey(BinarySearchTree<PTR_ADS>&);
-void printIndentedKey(BinarySearchTree<PTR_ADS>&);
-void printStatistics(HashLP<PTR_ADS>&);
-bool writeDataToFile(BinarySearchTree<PTR_ADS>&, UndoDeleteStack<PTR_ADS> trash);
-void emptyTrash(UndoDeleteStack<PTR_ADS> trash);
-void undoDelete(HashLP<PTR_ADS>&, BinarySearchTree<PTR_ADS>&, UndoDeleteStack<PTR_ADS>&);
-void quit(UndoDeleteStack<PTR_ADS> trash);
+void addData(HashLP<PTR_ADS>*, BinarySearchTree<PTR_ADS>*);  // these are all options from menu and are pretty self-explanatory
+void deleteData (HashLP<PTR_ADS>*, BinarySearchTree<PTR_ADS>*, UndoDeleteStack<PTR_ADS>*);
+void findAndDisplayData (HashLP<PTR_ADS>* );
+void listDataInHash (HashLP<PTR_ADS>*);
+void listDataInKey(BinarySearchTree<PTR_ADS>*);
+void printIndentedKey(BinarySearchTree<PTR_ADS>*);
+void printStatistics(HashLP<PTR_ADS>*);
+void writeDataToFile(HashLP<PTR_ADS>*, UndoDeleteStack<PTR_ADS>*);
+void undoDelete(HashLP<PTR_ADS>*, BinarySearchTree<PTR_ADS>*, UndoDeleteStack<PTR_ADS>*);
+void emptyTrash(UndoDeleteStack<PTR_ADS>*);
 
 int compareNames (const PTR_ADS &left, const PTR_ADS &right);                           //function that compares objects
 void displayPTR_ADS (PTR_ADS &toDisplay);
 int HashName(const PTR_ADS & adsMocking2016Race);
+int HashString( const string & key );
 
 
 
@@ -47,9 +49,11 @@ int HashName(const PTR_ADS & adsMocking2016Race);
 // We try and keep main pretty skeletal
 int main() {
     
-    HashLP<PTR_ADS> adsHashLP(HashName, compareNames); //declares HashLP
-    BinarySearchTree<PTR_ADS> adsBST(compareNames); // declares BST
-    UndoDeleteStack<PTR_ADS> trash;
+    HashLP<PTR_ADS>* adsHashLP;
+    adsHashLP = new HashLP<PTR_ADS>(HashName, compareNames); //declares HashLP
+    BinarySearchTree<PTR_ADS>* adsBST;
+    adsBST = new BinarySearchTree<PTR_ADS>(compareNames); // declares BST
+    UndoDeleteStack<PTR_ADS>* trash = new UndoDeleteStack<PTR_ADS>;
     
     ifstream inputFile; // declares file object
     if (!openInputFile( inputFile ) ) { // tests/ checks that file opens
@@ -96,7 +100,7 @@ bool openInputFile(ifstream &ifs)
 
 
 // Function reads in data from file, and assigns it to both the BST and the HashLP.
-void readInData(HashLP<PTR_ADS> &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, ifstream &inputFile){
+void readInData(HashLP<PTR_ADS> *adsHashLP, BinarySearchTree<PTR_ADS> *adsBST, ifstream &inputFile){
     
     string name, slogan, vStatistic; // names variables
     double stat;
@@ -108,15 +112,15 @@ void readInData(HashLP<PTR_ADS> &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, i
         PTR_ADS holder; // creates object
         holder = new AdsMocking2016Race(name, slogan, vStatistic, stat); //dynamic object created
 
-        adsHashLP.insert(holder); // inserts into HashLP
-        adsBST.insert(holder); // inserts into BST
+        adsHashLP->insert(holder); // inserts into HashLP
+        adsBST->insert(holder); // inserts into BST
     }
     
 }
 
 // Function displays menu and allows user to choose options.
 
-bool menu(HashLP<PTR_ADS> &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, UndoDeleteStack<PTR_ADS> &trash) {
+bool menu(HashLP<PTR_ADS> *adsHashLP, BinarySearchTree<PTR_ADS> *adsBST, UndoDeleteStack<PTR_ADS> *trash) {
     
     int command = -1; // variable that the user enters
     
@@ -173,7 +177,7 @@ bool menu(HashLP<PTR_ADS> &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, UndoDel
                 emptyTrash(trash);
                 break;
             case 10:
-                writeDataToFile(adsBST, trash);
+                writeDataToFile(adsHashLP, trash);
                 break;
             case 11:
                 return true;
@@ -183,12 +187,12 @@ bool menu(HashLP<PTR_ADS> &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, UndoDel
     return false;
 }
 
-void addData(HashLP<PTR_ADS &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST){
+void addData(HashLP<PTR_ADS> *adsHashLP, BinarySearchTree<PTR_ADS> *adsBST){
     
     string name, slogan, vStatistic; // names variables
     double stat;
     
-    cout << "You have chose to add a new advetisement." << endl;
+    cout << "You have chosen to add a new advetisement." << endl;
     cout << "Please enter the name of the politicain: " << endl;
     getline(cin, name);
     cout << "Please enter the politicians political slogan:" << endl;
@@ -206,53 +210,90 @@ void addData(HashLP<PTR_ADS &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST){
 
 }
 
-void deleteData (HashLP<PTR_ADS &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, UndoDeleteStack<PTR_ADS> &trash) {
+void deleteData (HashLP<PTR_ADS> *adsHashLP, BinarySearchTree<PTR_ADS> *adsBST, UndoDeleteStack<PTR_ADS> *trash) {
+    string name;
+    bool success = false;
+    
+    cout << "You have chosen to delete an advertisement" << endl;
+    
+    while(success){
+        cout << "Please enter the capitalized first and last name of the politician you wish to delete (ex: 'Bill Clinton'): " << endl;
+    getline(cin, name);
+    
+    AdsMocking2016Race *holder;
+    holder = new AdsMocking2016Race(name, name, name, 0);
+        if (adsHashLP->remove(holder)) {
+            success = true;
+            cout << "Advertisement deleted" << endl;
+        }
+            else
+                cout << "Unable to find entered data, let's try again." << endl;
+    }
     
 }
 
-void findAndDisplayData (HashLP<PTR_ADS &adsHashLP){
+void findAndDisplayData (HashLP<PTR_ADS> *adsHashLP){
+    string name;
+    bool success = false;
+    
+    cout << "You have chosen to find and display an advertisement" << endl;
+    
+    while(success){
+        cout << "Please enter the capitalized first and last name of the politician you wish to find (ex: 'Ronald Reagan'): " << endl;
+        getline(cin, name);
+        AdsMocking2016Race *getter;
+        AdsMocking2016Race *holder;
+        holder = new AdsMocking2016Race(name, name, name, 0);
+        if (adsHashLP->getEntry(holder, getter)) {
+            success = true;
+            getter->write();
+        }
+        else
+            cout << "Unable to find entered data, let's try again." << endl;
+    }
     
 }
 
-void listDataInHash (HashLP<PTR_ADS &adsHashLP)
+void listDataInHash (HashLP<PTR_ADS> *adsHashLP)
 {
     adsHashLP->write(cout);
 }
 
-void listDataInKey(BinarySearchTree<PTR_ADS> &adsBST) {
-    adsBST->_inorder(displayPTR_ADS);
+void listDataInKey(BinarySearchTree<PTR_ADS> *adsBST) {
+    adsBST->inOrder(displayPTR_ADS);
     cout << endl;
 }
 
-void printIndentedKey(BinarySearchTree<PTR_ADS>& adsBST){
-    adBST->print();
+void printIndentedKey(BinarySearchTree<PTR_ADS> *adsBST){
+    adsBST->print();
 }
 
-void printStatistics(HashLP<PTR_ADS& adsHashLP)
+void printStatistics(HashLP<PTR_ADS> *adsHashLP)
 {
     adsHashLP->displayStatistics();
 }
 
-bool writeDataToFile(HashLP<PTR_ADS>& adsHashLP, UndoDeleteStack<PTR_ADS> trash)
+void writeDataToFile(HashLP<PTR_ADS> *adsHashLP, UndoDeleteStack<PTR_ADS> *trash)
 {
-       ofstream file;
-       file.open("output.txt");
-        adsHashLP->write(file); //file is ostream of the text file we want to write to
-        file.close();
-}
-
-void emptyTrash(UndoDeleteStack<PTR_ADS> trash){
+    ofstream file;
+    file.open("output.txt");
+    adsHashLP->write(file); //file is ostream of the text file we want to write to
+    file.close();
     trash->clear();
-}
-
-void undoDelete(HashLP<PTR_ADS &adsHashLP, BinarySearchTree<PTR_ADS> &adsBST, UndoDeleteStack<PTR_ADS> &trash){
     
 }
 
-void quit(UndoDeleteStack<PTR_ADS> trash){
-    emptyTrash(trash);
+void undoDelete(HashLP<PTR_ADS> *adsHashLP, BinarySearchTree<PTR_ADS> *adsBST, UndoDeleteStack<PTR_ADS> *trash){
+    PTR_ADS holder;
+    holder = trash->peek();
+    adsHashLP->insert(holder);
+    adsBST->insert(holder);
+    
 }
 
+void emptyTrash(UndoDeleteStack<PTR_ADS> *trash){
+    trash->clear();
+}
 
 
 int compareNames (const PTR_ADS &left, const PTR_ADS &right) {
@@ -263,17 +304,17 @@ int compareNames (const PTR_ADS &left, const PTR_ADS &right) {
     else
         return 1;
 }
-
+//*****************************************************************************
 void displayPTR_ADS (PTR_ADS &toDisplay) {
-    toDisplay->writeAdsMocking2016Race(cout);
+   cout << toDisplay->write();
     cout << endl;
 }
 
 
 
-int HashName(const PTR_ADS & adsMocking2016Race)
+int HashName(const PTR_ADS & anAd)
 {
-    return HashString(AdsMocking2016Race->getName());
+    return HashString(anAd->getName());
 }
 
 int HashString( const string & key )
@@ -286,7 +327,6 @@ int HashString( const string & key )
     
     return retVal;
 }
-
 
 
 
