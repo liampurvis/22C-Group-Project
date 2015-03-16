@@ -37,6 +37,7 @@ void printStatistics(HashLP<PTR_ADS>*);
 void writeDataToFile(HashLP<PTR_ADS>*, UndoDeleteStack<PTR_ADS>*);
 void undoDelete(HashLP<PTR_ADS>*, BinarySearchTree<PTR_ADS>*, UndoDeleteStack<PTR_ADS>*);
 void emptyTrash(UndoDeleteStack<PTR_ADS>*);
+void displayOptions();
 
 int compareNames (const PTR_ADS &left, const PTR_ADS &right);                           //function that compares objects
 void displayPTR_ADS (PTR_ADS &toDisplay);
@@ -329,6 +330,21 @@ int HashString( const string & key )
 }
 
 
-
+void displayOptions() {
+    cout << "************************" << endl;
+    cout << "* 1) ADD DATA          *" << endl;
+    cout << "* 2) MOVE TO TRASH     *" << endl;
+    cout << "* 3) FIND AND DISPLAY  *" << endl;
+    cout << "* 4) PRINT HASH TABLE  *" << endl;
+    cout << "* 5) PRINT KEY         *" << endl;
+    cout << "* 6) PRINT BST         *" << endl;
+    cout << "* 7) PRINT STATISTICS  *" << endl;
+    cout << "* 8) UNDO DELETE       *" << endl;
+    cout << "* 9) EMPTY TRASH       *" << endl;
+    cout << "*10) WRITE TO FILE     *" << endl;
+    cout << "*11) QUIT              *" << endl;
+    cout << "************************" << endl;
+    
+}
 
 
