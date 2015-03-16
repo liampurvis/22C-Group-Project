@@ -271,24 +271,28 @@ void BinarySearchTree<ItemType>::_print(BinaryNode<ItemType>* p, int indent, int
 {
     if(p != NULL)
     {
+
         if(p->getLeftPtr())
         {
             _print(p->getLeftPtr(), indent + 4, level + 1);
         }
-        if(p->getRightPtr())
-        {
-            _print(p->getRightPtr(), indent + 4, level + 1);
-        }
+        
         if(indent) //indent != 0
         {
             cout << setw(indent) << " ";
         }
+
         cout << level << ". ";
         p->getItem()->write(cout);
         cout << endl;
+
+        if(p->getRightPtr())
+        {
+            _print(p->getRightPtr(), indent + 4, level + 1);
+        }
+
     }
 }
-
 //**************************************************************
 // Definition of function print:
 // This public print function calls the private recursive print 
