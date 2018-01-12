@@ -1,2 +1,2 @@
 # 22C-Group-Project-Team-Werk
-Mock presidential advertisements, with funny slogans and vague statistics. Data structure to be determined.
+Mock presidential advertisements, with funny slogans and vague statistics.
